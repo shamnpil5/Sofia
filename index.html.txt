@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Sofía ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{
+    margin:0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg,#ff758f,#ff4d6d);
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+}
+
+/* PANTALLA 1 */
+#screen1{
+    display:block;
+}
+
+h1{
+    font-size:2.5em;
+    margin-bottom:30px;
+}
+
+.btn{
+    padding:16px 38px;
+    font-size:22px;
+    border:none;
+    border-radius:40px;
+    margin:15px;
+    cursor:pointer;
+    transition:transform 0.3s ease;
+}
+
+#yesBtn{
+    background:#ff1744;
+    color:white;
+}
+
+#noBtn{
+    background:#888;
+    color:white;
+}
+
+/* PANTALLA 2 */
+#screen2{
+    display:none;
+}
+
+.card{
+    background:white;
+    color:#ff1744;
+    padding:35px;
+    border-radius:20px;
+    box-shadow:0 15px 40px rgba(0,0,0,0.3);
+    max-width:90%;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PANTALLA PREGUNTA -->
+<div id="screen1">
+    <h1>Sofía…<br>¿quieres ser mi novia? ❤️</h1>
+    <button id="yesBtn" class="btn">Sí</button>
+    <button id="noBtn" class="btn">No</button>
+</div>
+
+<!-- PANTALLA CARTA -->
+<div id="screen2">
+    <div class="card">
+        <h2>¡Sabía que dirías que sí! ❤️</h2>
+        <p>
+            Hoy comienza oficialmente nuestra historia.<br>
+            Gracias por elegirme, prometo cuidarte y amarte cada día.
+        </p>
+        <h3 id="counter"></h3>
+    </div>
+</div>
+
+<script>
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+
+let noScale = 1;
+let yesScale = 1;
+
+/* BOTÓN NO */
+noBtn.addEventListener("click", () => {
+    noScale -= 0.12;
+    yesScale += 0.12;
+
+    if(noScale < 0.2) noScale = 0.2;
+
+    noBtn.style.transform = `scale(${noScale})`;
+    yesBtn.style.transform = `scale(${yesScale})`;
+});
+
+/* BOTÓN SÍ */
+yesBtn.addEventListener("click", () => {
+    document.getElementById("screen1").style.display = "none";
+    document.getElementById("screen2").style.display = "block";
+});
+
+/* CONTADOR DESDE 2023-05-01 */
+const startDate = new Date("2023-05-01T00:00:00");
+
+function updateCounter(){
+    const now = new Date();
+    const diff = now - startDate;
+
+    const days = Math.floor(diff / (1000*60*60*24));
+    const hours = Math.floor(diff / (1000*60*60)) % 24;
+    const minutes = Math.floor(diff / (1000*60)) % 60;
+
+    document.getElementById("counter").innerHTML =
+        `Tiempo juntos: ${days} días ${hours} horas ${minutes} minutos ❤️`;
+}
+
+setInterval(updateCounter,1000);
+updateCounter();
+</script>
+
+</body>
+</html>
